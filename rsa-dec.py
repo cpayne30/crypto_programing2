@@ -12,7 +12,22 @@ def check_arg(args=None):
 return (results.key, results.input, results.output)
 
 
-#def rsa_decrypt():
+def mod_exp(n, e, m):
+    if m == 1: return 0
+    rv = 1
+    n = n % m
+    while e > 0:
+        if e & 1 == 1:
+            rv = (rv * n) % m
+        e >>= 1
+        n = (n ** 2) % m
+    return rv
+
+def rsa_decrypt(message, key):
+    N = key[0]
+    d = key[1]
+    m = int(message)
+    return mod_exp(m, d, N)
 
 
 k, i, o = check_arg(sys.argv[1:])
