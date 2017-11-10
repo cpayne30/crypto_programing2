@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from fractions import gcd
-import binascii, pip, sys, argparse, random
+import pip, sys, argparse, random
 
 #Parses Arguments
 def check_arg(args=None):
@@ -22,15 +22,15 @@ def mod_exp(n, e, m):
         n = (n ** 2) % m
     return rv
 
-def rsa_encrypt(message, key):
-    N = key[0]
-    e = key[1]
-    m = int(message)
+def rsa_encrypt(m, N, e):
     return mod_exp(m, e, N)
 
 k, i, o = check_arg(sys.argv[1:])
 
 key = open(k, 'r').read()
+pub_key = key.split()
+value = int(open(i, 'r').read())
+c = rsa_encrypt(value, int(pub_key[1]), int(pub_key[2]))
 
-in_string = open(i, 'rb').read()
-output = open(o, 'wb')
+output = open(o, 'w')
+output.write(str(c))

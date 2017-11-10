@@ -9,7 +9,7 @@ def check_arg(args=None):
     parser.add_argument('-i','--input', required= 'True', help='input file')
     parser.add_argument('-o','--output', required= 'True', help='output file')
     results = parser.parse_args(args)
-return (results.key, results.input, results.output)
+    return (results.key, results.input, results.output)
 
 
 def mod_exp(n, e, m):
@@ -23,16 +23,14 @@ def mod_exp(n, e, m):
         n = (n ** 2) % m
     return rv
 
-def rsa_decrypt(message, key):
-    N = key[0]
-    d = key[1]
-    m = int(message)
+def rsa_decrypt(m, N, d):
     return mod_exp(m, d, N)
 
 
 k, i, o = check_arg(sys.argv[1:])
 
-key = open(k, 'r').read()
-
-in_string = open(i, 'rb').read()
-output = open(o, 'wb')
+key = open(k, 'r').read().split()
+enc = int(open(i, 'r').read())
+dec = rsa_decrypt(enc, int(key[1]), int(key[2]))
+output = open(o, 'w')
+output.write(str(dec) + "\n")
