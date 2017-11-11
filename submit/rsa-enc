@@ -20,7 +20,7 @@ def mod_exp(n, e, m):
             rv = (rv * n) % m
         e >>= 1
         n = (n ** 2) % m
-    return rv
+    return rv % m
 
 def pad(m):
     n = len(bin(m)) + 24 - 2
@@ -33,6 +33,7 @@ def pad(m):
 
 def rsa_encrypt(m, N, e):
     m = pad(m)
+    print("fuck = " + str(m))
     return mod_exp(m, e, N)
 
 k, i, o = check_arg(sys.argv[1:])
@@ -41,6 +42,6 @@ key = open(k, 'r').read()
 pub_key = key.split()
 value = int(open(i, 'r').read())
 c = rsa_encrypt(value, int(pub_key[1]), int(pub_key[2]))
-
+print(c)
 output = open(o, 'w')
 output.write(str(c))

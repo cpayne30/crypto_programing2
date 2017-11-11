@@ -23,14 +23,19 @@ def mod_exp(n, e, m):
         n = (n ** 2) % m
     return rv
 
-def rsa_decrypt(m, N, d):
-    return mod_exp(m, d, N)
+def rsa_decrypt(m, l, N, d):
+    print(m)
+    m = mod_exp(m, d, N)
+    pad = 1 << (l - 1)
+    print (bin(pad))
+    m ^= pad
+    return m
 
 
 k, i, o = check_arg(sys.argv[1:])
 
 key = open(k, 'r').read().split()
 enc = int(open(i, 'r').read())
-dec = rsa_decrypt(enc, int(key[1]), int(key[2]))
+dec = rsa_decrypt(enc, int(key[0]), int(key[1]), int(key[2]))
 output = open(o, 'w')
 output.write(str(dec) + "\n")

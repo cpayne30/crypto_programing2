@@ -25,17 +25,17 @@ def mod_exp(n, e, m):
 
 def depad(m):
     n = len(bin(m)) - 2
-    r = n // 2
-    o = r + 10
-    print(o)
-    print(len(bin(m)))
-    b = bin(m)[o:]
-    return int(b)
+    r = (n // 2) + 12
+    b = "0b" + str(bin(m)[r:])
+    x = int(b)
+    return b
 
 
 def rsa_decrypt(m, N, d):
+    m = mod_exp(m, d, N)
+    print(m)
     m = depad(m)
-    return mod_exp(m, d, N)
+    return m
 
 
 k, i, o = check_arg(sys.argv[1:])

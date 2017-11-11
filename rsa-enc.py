@@ -22,7 +22,11 @@ def mod_exp(n, e, m):
         n = (n ** 2) % m
     return rv
 
-def rsa_encrypt(m, N, e):
+def rsa_encrypt(m, l, N, e):
+    pad = (1 << (l - 1))
+    print(m)
+    m |= pad
+    print(m)
     return mod_exp(m, e, N)
 
 k, i, o = check_arg(sys.argv[1:])
@@ -30,7 +34,7 @@ k, i, o = check_arg(sys.argv[1:])
 key = open(k, 'r').read()
 pub_key = key.split()
 value = int(open(i, 'r').read())
-c = rsa_encrypt(value, int(pub_key[1]), int(pub_key[2]))
+c = rsa_encrypt(value, int(pub_key[0]), int(pub_key[1]), int(pub_key[2]))
 
 output = open(o, 'w')
 output.write(str(c))

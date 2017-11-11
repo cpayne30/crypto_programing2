@@ -59,7 +59,7 @@ def multinv(order, value):
         rv = (1 - y * order) // value
     if rv < 0:
         rv += order
-    if not (0 <= rv < order and value * rv % order == 1):
+    if not (0 <= rv < order and (value * rv) % order == 1):
         return None
     return rv
 
@@ -86,6 +86,9 @@ public_key = open(p, 'w')
 private_key = open(s, 'w')
 
 N, e, d = rsa_keygen(int(n))
+
+print("e = " + str(e))
+print("d = " + str(d))
 
 public_key.write(str(n) + "\n")
 public_key.write(str(N) + "\n")
