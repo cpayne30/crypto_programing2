@@ -43,7 +43,7 @@ def ProbPrimeRabinMiller(n):
 def randprime(bit_len):
   while True:
     prime = random.getrandbits(bit_len)
-    prime = prime | bit_len
+    prime = prime | (1 << bit_len)
 
     if ProbPrimeRabinMiller(prime): break
 
