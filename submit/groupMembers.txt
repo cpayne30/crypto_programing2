@@ -1,4 +1,0 @@
-Name            Netid
-Denizhan Pak    dpak
-Zac Trzil       ztrzil
-Stone Payne     cpayne30
