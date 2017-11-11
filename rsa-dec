@@ -23,7 +23,18 @@ def mod_exp(n, e, m):
         n = (n ** 2) % m
     return rv
 
+def depad(m):
+    n = len(bin(m)) - 2
+    r = n // 2
+    o = r + 10
+    print(o)
+    print(len(bin(m)))
+    b = bin(m)[o:]
+    return int(b)
+
+
 def rsa_decrypt(m, N, d):
+    m = depad(m)
     return mod_exp(m, d, N)
 
 

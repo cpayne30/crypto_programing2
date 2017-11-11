@@ -22,7 +22,17 @@ def mod_exp(n, e, m):
         n = (n ** 2) % m
     return rv
 
+def pad(m):
+    n = len(bin(m)) + 24 - 2
+    r = bytearray([0,2])
+    for x in range(n): 
+        r.append(random.getrandbits(8)) 
+    r.append(0)
+    r += m.to_bytes((m.bit_length() + 7) // 8, 'big')  or b'\0'
+    return int.from_bytes(bytes(r), byteorder="little")
+
 def rsa_encrypt(m, N, e):
+    m = pad(m)
     return mod_exp(m, e, N)
 
 k, i, o = check_arg(sys.argv[1:])
